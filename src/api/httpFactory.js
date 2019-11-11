@@ -8,10 +8,11 @@ const handleSuccessBranch = response => {
   return response.status >= 200 && response.status < 300
     ? response.json().then(json => json.data)
     : response.json().then(json => {
-        const errors = json.message.map(message => ({
-              message,
-              statusCode: response.statusCode,
-            }));
+        const errorMessages = json.message ? JSON.parse(json.message) : [];
+        const errors = errorMessages.map(message => ({
+          message,
+          statusCode: response.statusCode,
+        }));
         return Promise.reject(errors);
       });
 };

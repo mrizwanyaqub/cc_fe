@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.pageHeading {
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+
+.formHeading {
+    font-size: 25px;
+    padding-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+    .cardForm {
+        width: 33.33%;
+    }
+
+    .containerPadding {
+        padding: 20px 50px;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .cardForm {
+        width: 100%;
+    }
+
+    .containerPadding {
+        padding: 10px;
+    }
+}
+
+.cardList {
+
+}

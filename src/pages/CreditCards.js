@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getCreditCards } from '../store/creditCard.actions';
-import { CreditCardForm, ListItems } from '../components';
+import { CreditCardForm, ListItems, Loader } from '../components';
 import './CreditCards.css';
 
 const CreditCards = ({ actions, loading }) => {
@@ -12,16 +12,19 @@ const CreditCards = ({ actions, loading }) => {
   }, []); //eslint-disable-line
 
   return (
-    <div className="container">
-      <div className="content">
-        <span className="pageHeading">Credit Card System</span>
-        <span className="formHeading">Add</span>
-        <div className="cardForm">
-          <CreditCardForm />
+    <>
+      {loading && <Loader />}
+      <div className="container containerPadding">
+        <div className="content">
+          <span className="pageHeading">Credit Card System</span>
+          <span className="formHeading">Add</span>
+          <div className="cardForm">
+            <CreditCardForm />
+          </div>
+          <ListItems />
         </div>
-        <ListItems />
       </div>
-    </div>
+    </>
   );
 };
 

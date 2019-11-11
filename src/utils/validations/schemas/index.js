@@ -1,1 +1,1 @@
-export { CreditCardSchema } from "./CreditCardSchema";
+export { CreditCardSchema } from './CreditCardSchema';

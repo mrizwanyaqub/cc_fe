@@ -5,10 +5,10 @@ import './ListItem.css';
 const ListItem = ({ creditCard }) => {
   return (
     <div className="listItemContainer">
-      <div className="listItemHeadingLabel">{creditCard.name}</div>
-      <div className="listItemHeadingLabel">{creditCard.cardNumber}</div>
-      <div className="listItemHeadingLabel">{creditCard.balance}</div>
-      <div className="listItemHeadingLabel">{creditCard.limit}</div>
+      <div className="listItemHeadingLabel mobileShow">{creditCard.name}</div>
+      <div className="listItemHeadingLabel mobileShow">{creditCard.cardNumber}</div>
+      <div className="listItemHeadingLabel mobileHide">{creditCard.balance}</div>
+      <div className="listItemHeadingLabel mobileHide">{creditCard.limit}</div>
     </div>
   );
 };

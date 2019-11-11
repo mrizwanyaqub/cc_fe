@@ -1,174 +1,78 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as actions from '../dailynotes.actions';
-import types from '../dailynotes.constants';
-import * as API from '../../api/dailynotes.api';
+import * as actions from '../creditCard.actions';
+import types from '../creditCard.constants';
+import creditCardsApi from '../../api/creditCards.api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-jest.mock('../../api/dailynotes.api');
+jest.mock('../../api/creditCards.api');
 
-describe('Daily Notes Actions', () => {
-  it('should emit GET_DAILY_NOTES_SUCCESS action when fetching daily notes has been done', () => {
+describe('Credit Card Actions', () => {
+  it('should emit GET_CREDIT_CARDS_SUCCESS action when fetching credit cards has been done', () => {
     const expectedActions = [
-      { type: types.GET_DAILY_NOTES_REQUEST },
+      { type: types.GET_CREDIT_CARDS_REQUEST },
       {
-        payload: { id: 'testId', content: 'testContent' },
-        type: types.GET_DAILY_NOTES_SUCCESS,
+        payload: [
+          {
+            id: 'testId',
+            name: 'muhammad rizwan',
+            cardNumber: '41111111111111111',
+            limit: 12,
+          },
+        ],
+        type: types.GET_CREDIT_CARDS_SUCCESS,
       },
     ];
 
-    API.getDailyNotes.mockResolvedValue([expectedActions[1].payload]);
+    creditCardsApi.fetchAll.mockResolvedValue(expectedActions[1].payload);
     const store = mockStore({});
-    return store.dispatch(actions.getDailyNotes('20170418')).then(() => {
+    return store.dispatch(actions.getCreditCards()).then(() => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
-  it(
-    'should emit GET_DAILY_NOTES_SUCCESS action with empty daily note when ' +
-      'fetching daily notes has been done and returned empty array',
-    () => {
-      const expectedActions = [
-        { type: types.GET_DAILY_NOTES_REQUEST },
-        {
-          payload: { id: '', content: '' },
-          type: types.GET_DAILY_NOTES_SUCCESS,
-        },
-      ];
-
-      API.getDailyNotes.mockResolvedValue([]);
-      const store = mockStore({});
-      return store.dispatch(actions.getDailyNotes('20170418')).then(() => {
-        // return of async actions
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-    }
-  );
-
-  it('should emit GET_DAILY_NOTES_ERROR action when fetching daily notes has errored', () => {
+  it('should emit GET_CREDIT_CARDS_ERROR action when fetching daily notes has errored', () => {
     const expectedActions = [
-      { type: types.GET_DAILY_NOTES_REQUEST },
+      { type: types.GET_CREDIT_CARDS_REQUEST },
       {
-        error: 'some error',
-        type: types.GET_DAILY_NOTES_ERROR,
+        errors: [{ message: 'some error' }],
+        type: types.GET_CREDIT_CARDS_ERROR,
       },
     ];
 
-    API.getDailyNotes.mockRejectedValue(expectedActions[1].error);
+    creditCardsApi.fetchAll.mockRejectedValue(expectedActions[1].errors);
     const store = mockStore({});
-    return store.dispatch(actions.getDailyNotes('20170418')).then(() => {
+    return store.dispatch(actions.getCreditCards()).then(() => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
-  it('should emit UPDATE_DAILY_NOTES_SUCCESS action when updating daily notes has been done', () => {
+  it('should emit CREATE_CREDIT_CARD_SUCCESS action when updating daily notes has been done', () => {
     const expectedActions = [
-      { type: types.UPDATE_DAILY_NOTES_REQUEST },
+      { type: types.CREATE_CREDIT_CARD_REQUEST },
       {
-        payload: { id: 'testId', content: 'testContent' },
-        type: types.UPDATE_DAILY_NOTES_SUCCESS,
-      },
-    ];
-
-    API.updateDailyNotes.mockResolvedValue(expectedActions[1].payload);
-    const store = mockStore({
-      dailyNotes: {
-        id: expectedActions[1].payload.id,
-      },
-      reservations: {
-        timestamp: 89393823,
-      },
-    });
-    return store
-      .dispatch(actions.updateDailyNotes(expectedActions[1].payload.content))
-      .then(() => {
-        // return of async actions
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-  });
-
-  it('should emit UPDATE_DAILY_NOTES_SUCCESS action when creating daily notes has been done', () => {
-    const expectedActions = [
-      { type: types.UPDATE_DAILY_NOTES_REQUEST },
-      {
-        payload: { id: 'testId', content: 'testContent' },
-        type: types.UPDATE_DAILY_NOTES_SUCCESS,
-      },
-    ];
-
-    API.createDailyNotes.mockResolvedValue(expectedActions[1].payload);
-    const store = mockStore({
-      dailyNotes: {
-        id: '',
-      },
-      reservations: {
-        timestamp: 89393823,
-      },
-    });
-    return store
-      .dispatch(actions.updateDailyNotes(expectedActions[1].payload.content))
-      .then(() => {
-        // return of async actions
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-  });
-
-  it(
-    'should emit UPDATE_DAILY_NOTES_SUCCESS action with an empty daily note' +
-      ' when deleting daily notes has been done',
-    () => {
-      const expectedActions = [
-        { type: types.UPDATE_DAILY_NOTES_REQUEST },
-        {
-          payload: { id: '', content: '' },
-          type: types.UPDATE_DAILY_NOTES_SUCCESS,
-        },
-      ];
-
-      API.deleteDailyNotes.mockResolvedValue(null);
-      const store = mockStore({
-        dailyNotes: {
+        payload: {
           id: 'testId',
+          name: 'muhammad rizwan',
+          cardNumber: '41111111111111111',
+          limit: 12,
         },
-        reservations: {
-          timestamp: 89393823,
-        },
-      });
-      return store
-        .dispatch(actions.updateDailyNotes(expectedActions[1].payload.content))
-        .then(() => {
-          // return of async actions
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-    }
-  );
-
-  it('should emit UPDATE_DAILY_NOTES_ERROR action when updating daily notes has errored', () => {
-    const expectedActions = [
-      { type: types.UPDATE_DAILY_NOTES_REQUEST },
-      {
-        error: 'some error',
-        type: types.UPDATE_DAILY_NOTES_ERROR,
+        type: types.CREATE_CREDIT_CARD_SUCCESS,
       },
     ];
 
-    API.updateDailyNotes.mockRejectedValue(expectedActions[1].error);
-    const store = mockStore({
-      dailyNotes: {
-        id: 'testId',
-      },
-      reservations: {
-        timestamp: 89393823,
-      },
-    });
-    return store.dispatch(actions.updateDailyNotes('content')).then(() => {
-      // return of async actions
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    creditCardsApi.add.mockResolvedValue(expectedActions[1].payload);
+    const store = mockStore({});
+    return store
+      .dispatch(actions.createCreditCards(expectedActions[1].payload))
+      .then(() => {
+        // return of async actions
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 });

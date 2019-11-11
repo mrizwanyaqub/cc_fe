@@ -1,1 +1,1 @@
-export { validateCreditCardPost } from "./creditCardValidator";
+export { validateCreditCardPost } from './creditCardValidator';

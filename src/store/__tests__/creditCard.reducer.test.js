@@ -1,123 +1,121 @@
 import reducer, {
   initialState as defaultInitialState,
-} from '../dailynotes.reducer';
-import types from '../dailynotes.constants';
+} from '../creditCard.reducer';
+import types from '../creditCard.constants';
 
-const dailyNotePayload = { id: 'testId', content: 'testContent' };
+const creditCardPayload = {
+  id: 'testId',
+  name: 'muhammad rizwan',
+  cardNumber: '41111111111111111',
+  limit: 12,
+};
 
-describe('Daily Notes Reducer', () => {
+describe('Credit Card Reducer', () => {
   it('should return initial state', () => {
     expect(reducer(defaultInitialState, {})).toEqual(defaultInitialState);
   });
 
-  it('should handle GET_DAILY_NOTES_REQUEST', () => {
+  it('should handle GET_CREDIT_CARDS_REQUEST', () => {
     const initialState = {
       attempting: false,
     };
 
     expect(
       reducer(initialState, {
-        type: types.GET_DAILY_NOTES_REQUEST,
+        type: types.GET_CREDIT_CARDS_REQUEST,
       })
     ).toEqual({
       attempting: true,
     });
   });
 
-  it('should handle GET_DAILY_NOTES_SUCCESS', () => {
+  it('should handle GET_CREDIT_CARDS_SUCCESS', () => {
     const initialState = {
       attempting: true,
-      error: 'some error',
+      errors: [{message: 'some error'}],
+      list: [],
     };
 
     expect(
       reducer(initialState, {
-        type: types.GET_DAILY_NOTES_SUCCESS,
-        payload: dailyNotePayload,
+        type: types.GET_CREDIT_CARDS_SUCCESS,
+        payload: [creditCardPayload],
       })
     ).toEqual({
       attempting: false,
-      error: null,
-      ...dailyNotePayload,
+      errors: [],
+      list: [creditCardPayload],
     });
   });
 
-  it('should handle GET_DAILY_NOTES_ERROR', () => {
+  it('should handle GET_CREDIT_CARDS_ERROR', () => {
     const initialState = {
       attempting: true,
-      error: null,
+      errors: [],
     };
 
-    const error = { message: 'some error' };
-
+    const errors = [{ message: 'some error' }];
     expect(
       reducer(initialState, {
-        type: types.GET_DAILY_NOTES_ERROR,
-        error,
+        type: types.GET_CREDIT_CARDS_ERROR,
+        errors,
       })
     ).toEqual({
       attempting: false,
-      error: error.message,
+      errors,
     });
   });
 
-  it('should handle UPDATE_DAILY_NOTES_REQUEST', () => {
+  it('should handle CREATE_CREDIT_CARD_REQUEST', () => {
     const initialState = {
-      edit: {
-        attempting: false,
-      },
+      attempting: false,
     };
 
     expect(
       reducer(initialState, {
-        type: types.UPDATE_DAILY_NOTES_REQUEST,
+        type: types.CREATE_CREDIT_CARD_REQUEST,
       })
     ).toEqual({
-      edit: {
-        attempting: true,
-      },
+      attempting: true,
     });
   });
 
-  it('should handle UPDATE_DAILY_NOTES_SUCCESS', () => {
+  it('should handle CREATE_CREDIT_CARD_SUCCESS', () => {
     const initialState = {
-      edit: {
-        attempting: true,
-        error: 'some error',
-      },
+      attempting: true,
+      errors: [{message: 'some error'}],
+      list: [],
+      form: {},
     };
 
     expect(
       reducer(initialState, {
-        type: types.UPDATE_DAILY_NOTES_SUCCESS,
-        payload: dailyNotePayload,
+        type: types.CREATE_CREDIT_CARD_SUCCESS,
+        payload: creditCardPayload,
       })
     ).toEqual({
-      edit: { attempting: false, error: null },
-      ...dailyNotePayload,
+      attempting: false,
+      errors: [],
+      list: [creditCardPayload],
+      form: {},
     });
   });
 
-  it('should handle UPDATE_DAILY_NOTES_ERROR', () => {
+  it('should handle CREATE_CREDIT_CARD_ERROR', () => {
     const initialState = {
-      edit: {
-        attempting: true,
-        error: null,
-      },
+      attempting: true,
+      errors: null,
     };
 
-    const error = { message: 'some error' };
-
+    const errors = [{message: 'some error'}];
     expect(
       reducer(initialState, {
-        type: types.UPDATE_DAILY_NOTES_ERROR,
-        error,
+        type: types.CREATE_CREDIT_CARD_ERROR,
+        errors,
       })
     ).toEqual({
-      edit: {
-        attempting: false,
-        error: error.message,
-      },
+      attempting: false,
+      errors,
     });
   });
 });
