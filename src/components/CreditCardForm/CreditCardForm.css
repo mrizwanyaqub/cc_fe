@@ -1,0 +1,8 @@
+.formContainer > :not(:last-child) {
+    padding-bottom: 15px;
+}
+
+.addButton {
+    height: 40px;
+    width: 100px;
+}

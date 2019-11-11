@@ -1,0 +1,22 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.label {
+    font-size: 15px;
+    height: 15px;
+    padding-bottom: 10px;
+}
+
+.inputElem {
+    height: 30px;
+}
+
+.error {
+    font-size: 15px;
+    padding-top: 10px;
+    height: 15px;
+}

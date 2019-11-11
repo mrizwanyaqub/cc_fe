@@ -1,0 +1,23 @@
+.listItemContainer {
+    display: flex;
+    flex: 1 0 0;
+
+    justify-content: flex-start;
+    align-items: center;
+
+    height: 30px;
+}
+
+.listItemContainer > :not(:last-child) {
+    border-right: 1px solid black;
+}
+
+.listItemHeadingLabel {
+    display: flex;
+    flex: 1 0 0;
+
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
+}
